@@ -1,5 +1,6 @@
 #include "../include/LivePortfolio.hpp"
 #include <iostream>
+#include <string>
 #include <cpr/cpr.h>
 #include <nlohmann/json.hpp>
 
@@ -22,17 +23,40 @@ void LivePortfolio::executeOrder(const Order& order) {
                                 cpr::Header{{"Content-Type", "application/json"}});
 
     if (r.status_code == 200) {
-        std::cout << "Order placed successfully: " << r.text << std::endl;
+        std::cout << "Order successfully placed: " << r.text << std::endl;
     } else {
         std::cout << "Order failed: " << r.status_code << " - " << r.text << std::endl;
     }
 }
 
 double LivePortfolio::getCash() const {
-    return 100000.0; 
+    cpr::Response r = cpr::Get(cpr::Url{tradingApiUrl + "/v2/account"},
+                               cpr::Header{{"APCA-API-KEY-ID", apiKey},
+                                           {"APCA-API-SECRET-KEY", secretKey}});
+
+    if (r.status_code == 200) {
+        try {
+            nlohmann::json account = nlohmann::json::parse(r.text);
+            return std::stod(account["cash"].get<std::string>());
+        } catch (const std::exception& e) {
+            std::cerr << "Error parsing account cash: " << e.what() << std::endl;
+        }
+    }
+    return 0.0;
 }
 
 int LivePortfolio::getShares(const std::string& symbol) const {
+    cpr::Response r = cpr::Get(cpr::Url{tradingApiUrl + "/v2/positions/" + symbol},
+                               cpr::Header{{"APCA-API-KEY-ID", apiKey},
+                                           {"APCA-API-SECRET-KEY", secretKey}});
+
+    if (r.status_code == 200) {
+        try {
+            nlohmann::json position = nlohmann::json::parse(r.text);
+            return std::stoi(position["qty"].get<std::string>());
+        } catch (const std::exception& e) {
+        }
+    }
     return 0;
 }
 
@@ -40,5 +64,9 @@ void LivePortfolio::printAccountSummary() {
     cpr::Response r = cpr::Get(cpr::Url{tradingApiUrl + "/v2/account"},
                                cpr::Header{{"APCA-API-KEY-ID", apiKey},
                                            {"APCA-API-SECRET-KEY", secretKey}});
-    std::cout << "\n--- Alpaca Account Summary ---\n" << r.text << std::endl;
+    if (r.status_code == 200) {
+        std::cout << "\n--- Alpaca Account Summary ---\n" << r.text << std::endl;
+    } else {
+        std::cout << "\n--- Failed to fetch account summary ---" << std::endl;
+    }
 }
