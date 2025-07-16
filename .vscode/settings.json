@@ -1,3 +1,4 @@
 {
-    "C_Cpp.errorSquiggles": "enabled"
+    "C_Cpp.errorSquiggles": "enabled",
+    "cmake.sourceDirectory": "/mnt/c/Users/johan/Projects/AlgorithmicTradingEngine/cpr/build/_deps/curl-src/scripts"
 }

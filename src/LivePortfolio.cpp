@@ -22,19 +22,17 @@ void LivePortfolio::executeOrder(const Order& order) {
                                 cpr::Header{{"Content-Type", "application/json"}});
 
     if (r.status_code == 200) {
-        std::cout << "Order successfully placed: " << r.text << std::endl;
+        std::cout << "Order placed successfully: " << r.text << std::endl;
     } else {
         std::cout << "Order failed: " << r.status_code << " - " << r.text << std::endl;
     }
 }
 
 double LivePortfolio::getCash() const {
-    // In a real system, you'd fetch this from the /v2/account endpoint
     return 100000.0; 
 }
 
 int LivePortfolio::getShares(const std::string& symbol) const {
-    // In a real system, you'd fetch this from the /v2/positions endpoint
     return 0;
 }
 
