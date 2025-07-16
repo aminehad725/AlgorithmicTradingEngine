@@ -8,14 +8,16 @@ class Portfolio {
 private:
     double cash;
     int shares;
-    double marketValue;
+    double initialCapital;
     std::vector<Order> orderHistory;
+    std::vector<double> historicalValues;
+    double transactionCost;
 
 public:
-    Portfolio(double initialCash);
+    Portfolio(double initialCash, double costPerTrade);
     void executeOrder(const Order& order);
     void updateMarketValue(const PriceData& data);
-    void printSummary();
+    void printPerformanceReport();
 
     double getCash() const { return cash; }
     int getShares() const { return shares; }

@@ -10,7 +10,7 @@ int main() {
     MarketDataLoader loader("data/AAPL.csv");
     auto data = loader.loadData(); 
     Strategy smaStrategy(10U, 20U); 
-    Portfolio portfolio(100000);
+    Portfolio portfolio(100000, 1.00);
 
     for (const auto& dataPoint : data) { 
         auto signal = smaStrategy.generateSignal(dataPoint, portfolio.getCash(), portfolio.getShares());
@@ -21,6 +21,6 @@ int main() {
         portfolio.updateMarketValue(dataPoint);
     }
 
-    portfolio.printSummary();
+    portfolio.printPerformanceReport();
     return 0;
 }
