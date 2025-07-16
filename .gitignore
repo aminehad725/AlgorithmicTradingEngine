@@ -18,3 +18,5 @@ trading_engine
 Thumbs.db
 
 *.log
+
+config.json
