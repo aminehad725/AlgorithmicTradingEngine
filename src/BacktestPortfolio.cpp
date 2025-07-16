@@ -1,44 +1,53 @@
-#include "../include/portfolio.hpp"
+#include "../include/BacktestPortfolio.hpp"
 #include <iostream>
 #include <vector>
 #include <numeric>
 #include <cmath>
 
-Portfolio::Portfolio(double initialCash, double costPerTrade) 
-    : cash(initialCash), 
-      shares(0), 
-      initialCapital(initialCash), 
+BacktestPortfolio::BacktestPortfolio(double initialCash, double costPerTrade)
+    : cash(initialCash),
+      initialCapital(initialCash),
       transactionCost(costPerTrade) {}
 
-void Portfolio::executeOrder(const Order& order) {
-    bool executed = false;
-    if (order.type == OrderType::BUY && cash >= order.quantity * order.price) {
-        cash -= order.quantity * order.price;
-        cash -= transactionCost;
-        shares += order.quantity;
-        executed = true;
-    } else if (order.type == OrderType::SELL && shares >= order.quantity) {
-        cash += order.quantity * order.price;
-        cash -= transactionCost;
-        shares -= order.quantity;
-        executed = true;
-    }
+void BacktestPortfolio::executeOrder(const Order& order) {
+    int currentShares = getShares(order.symbol);
 
-    if (executed) {
+    if (order.type == OrderType::BUY && cash >= (order.quantity * order.price) + transactionCost) {
+        cash -= (order.quantity * order.price) + transactionCost;
+        positions[order.symbol] = currentShares + order.quantity;
         orderHistory.push_back(order);
-    } else {
-        std::cerr << "Trade failed: " << (order.type == OrderType::BUY ? "BUY" : "SELL") 
-                  << " " << order.quantity << " " << order.symbol << " at $" << order.price 
-                  << " (Insufficient funds/shares)\n";
+    } else if (order.type == OrderType::SELL && currentShares >= order.quantity) {
+        cash += (order.quantity * order.price) - transactionCost;
+        positions[order.symbol] = currentShares - order.quantity;
+        orderHistory.push_back(order);
     }
 }
 
-void Portfolio::updateMarketValue(const PriceData& data) {
-    double totalValue = cash + (shares * data.close);
+void BacktestPortfolio::updateMarketValue(const std::map<std::string, PriceData>& latestPrices) {
+    double marketValue = 0.0;
+    for (const auto& pair : positions) {
+        std::string symbol = pair.first;
+        int shares = pair.second;
+        if (latestPrices.count(symbol)) {
+            marketValue += shares * latestPrices.at(symbol).close;
+        }
+    }
+    double totalValue = cash + marketValue;
     historicalValues.push_back(totalValue);
 }
 
-void Portfolio::printPerformanceReport() {
+double BacktestPortfolio::getCash() const {
+    return cash;
+}
+
+int BacktestPortfolio::getShares(const std::string& symbol) const {
+    if (positions.count(symbol)) {
+        return positions.at(symbol);
+    }
+    return 0;
+}
+
+void BacktestPortfolio::printPerformanceReport() {
     if (historicalValues.size() < 2) {
         std::cout << "Not enough data for performance report.\n";
         return;
@@ -55,14 +64,14 @@ void Portfolio::printPerformanceReport() {
     double meanReturn = std::accumulate(returns.begin(), returns.end(), 0.0) / returns.size();
     
     double stdDev = 0.0;
-    for (const auto r : returns) {
+    for (const auto& r : returns) {
         stdDev += (r - meanReturn) * (r - meanReturn);
     }
     stdDev = std::sqrt(stdDev / returns.size());
 
     double downsideDev = 0.0;
     int negativeCount = 0;
-    for (const auto r : returns) {
+    for (const auto& r : returns) {
         if (r < 0) {
             downsideDev += r * r;
             negativeCount++;
@@ -106,7 +115,6 @@ void Portfolio::printPerformanceReport() {
     std::cout << "Sortino Ratio: " << sortinoRatio << "\n";
     std::cout << "------------------------------------\n";
     std::cout << "Final Cash: $" << cash << "\n";
-    std::cout << "Final Shares: " << shares << "\n";
     std::cout << "Total Trades: " << orderHistory.size() << "\n";
     std::cout << "====================================\n";
 }
