@@ -3,7 +3,6 @@
 #include <vector>
 #include <numeric>
 #include <cmath>
-#include <algorithm>
 
 Portfolio::Portfolio(double initialCash, double costPerTrade) 
     : cash(initialCash), 

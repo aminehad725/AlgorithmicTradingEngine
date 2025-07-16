@@ -5,13 +5,11 @@
             "includePath": [
                 "${workspaceFolder}/**"
             ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "configurationProvider": "ms-vscode.makefile-tools",
-            "compilerPath": "/usr/bin/g++"
+            "defines": [],
+            "compilerPath": "/usr/bin/g++",
+            "cStandard": "c17",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-x64"
         }
     ],
     "version": 4

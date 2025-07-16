@@ -1,5 +1,4 @@
 #pragma once
-#include <string>
 #include <vector>
 #include "order.hpp"
 #include "market_data.hpp"
